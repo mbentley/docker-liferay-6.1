@@ -8,3 +8,5 @@ To pull this image:
 
 Example:
 `docker run -it -p 8080:8080 -p 5432:5432 mbentley/liferay-6.1`
+
+When the Liferay Portal first comes up, use `test@liferay.com` for the username and `test` for the password.
