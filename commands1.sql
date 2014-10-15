@@ -1,0 +1,2 @@
+CREATE ROLE liferay WITH PASSWORD 'liferay' LOGIN;
+CREATE DATABASE lportal WITH OWNER liferay;

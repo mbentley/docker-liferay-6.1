@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Parameters: start or stop.
+export POSTGRES_VERSION=8.4.15
+# Check parameter.
+if [ "$1" != "start" ] && [ "$1" != "stop" ]; then
+ echo "Specify start or stop as first parameter."
+ exit
+fi
+
+# Add stop switch.
+__STOP_SWITCH=""
+if [ "$1" = "stop" ]; then
+ __STOP_MODE="smart"
+ __STOP_SWITCH="-m $__STOP_MODE"
+ echo "Stop switch is: $__STOP_SWITCH"
+
+fi
+
+# Do it.
+export LD_LIBRARY_PATH=/opt/postgresql/${POSTGRES_VERSION}/lib
+. ~/.environment-${POSTGRES_VERSION}
+/opt/postgresql/${POSTGRES_VERSION}/bin/pg_ctl \
+    -D /opt/postgresql/${POSTGRES_VERSION}/data \
+    -l /opt/postgresql/${POSTGRES_VERSION}/log/postgresql.log \
+    $1 $__STOP_SWITCH
+
+# Alternative command.
+# /opt/postgresql/${POSTGRES_VERSION}/bin/postgres -D /opt/postgresql/${POSTGRES_VERSION}/data

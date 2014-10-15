@@ -1,0 +1,21 @@
+#!/bin/bash
+
+case "$1" in
+
+start)
+ echo "Starting postgres"
+ #/bin/su - postgres -c "/home/postgres/postgresql-8.4.15 start"
+ /home/postgres/postgresql-8.4.15 start
+ ;;
+stop)
+ echo "Stopping postgres"
+ #/bin/su - postgres -c "/home/postgres/postgresql-8.4.15 stop"
+ /home/postgres/postgresql-8.4.15 stop
+ ;;
+* )
+ echo "Usage: /sbin/service postgresql.8.4.15 {start|stop}"
+ exit 1
+
+esac
+
+exit 0

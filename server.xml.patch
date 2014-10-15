@@ -1,0 +1,12 @@
+--- server.xml.orig     2014-10-14 19:26:26.452523382 +0000
++++ server.xml  2014-10-14 19:26:59.236907493 +0000
+@@ -69,7 +69,8 @@
+     -->
+     <Connector port="8080" protocol="HTTP/1.1"
+                connectionTimeout="20000"
+-               redirectPort="8443" />
++               redirectPort="8443"
++               URIEncoding="UTF-8" />
+     <!-- A "Connector" using the shared thread pool-->
+     <!--
+     <Connector executor="tomcatThreadPool"

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "Starting PostgreSQL..."
+su - postgres -c ". .environment-8.4.15 && /home/postgres/postgresql-8.4.15 start"
+
+if [ ! -f /opt/liferay/tomcat/logs/catalina.out ]
+then
+	echo "Starting Tomcat for first time run..."
+	/opt/liferay/tomcat/bin/startup.sh
+	sleep 5
+	echo -ne "\nWaiting for Liferay to start..."
+	while [[ `cat /opt/liferay/tomcat/logs/catalina.out | grep "INFO: Server startup in" > /dev/null 2>&1; echo $?` -eq 1 ]]
+	do
+		sleep 2.5
+		echo -ne "."
+	done
+	echo "done."
+	sleep 5
+	echo "Restarting Tomcat..."
+	/opt/liferay/tomcat/bin/shutdown.sh && sleep 1 && /opt/liferay/tomcat/bin/startup.sh
+else
+	echo "Starting Tomcat..."
+	/opt/liferay/tomcat/bin/startup.sh
+fi
+
+echo "Tailing catalina.out..."
+tail -n 0 -f /opt/liferay/tomcat/logs/catalina.out
+
+#sleep infinity
